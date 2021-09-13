@@ -1,3 +1,5 @@
+@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css';
+
 :root {
   font: 16px / 1 sans-serif;
 }
@@ -9,17 +11,44 @@ html {
 body {
   margin: 0;
   min-height: 100%;
+  background-color: rgb(75, 75, 155);
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 ul {
   display: flex;
   list-style: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  background-color: rgb(236, 236, 236);
 
   li {
-    min-width: 4ex;
-    min-height: 4ex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 5ex;
+    min-height: 5ex;
   }
 }
+
 li {
   border: 1px black solid;
+}
+
+.fa-flag {
+  color: rgb(187, 187, 46);
+}
+
+.flagged-bomb {
+  color: red;
+}
+
+button {
+  margin-top: 1rem;
 }

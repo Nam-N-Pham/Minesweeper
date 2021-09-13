@@ -1,4 +1,5 @@
-import React, { HtmlHTMLAttributes, useState } from 'react'
+import React, { useState } from 'react'
+import techiesMine from './images/Techies_Proximity_Mine_model.png'
 
 export function App() {
   const [game, setGame] = useState({
@@ -65,33 +66,64 @@ export function App() {
       setGame(await newGameState)
     }
   }
+
+  let gameStatus = game.state
+  switch (gameStatus) {
+    case 'new':
+    case 'playing':
+      gameStatus = 'Minesweeper'
+      break
+    case 'won':
+      gameStatus = 'You win!'
+      break
+    case 'lost':
+      gameStatus = 'You lose!'
+      break
+  }
+
+  function transformCell(cell: string | number) {
+    switch (cell) {
+      case '*':
+        return <img src={techiesMine} width="35px" height="35px" />
+      case 'F':
+        return <i className="fa fa-flag" />
+      case '@':
+        return <i className="fa fa-flag flagged-bomb" />
+      default:
+        return cell
+    }
+  }
+
   return (
     <div>
-      <main>
-        {game.board.map((boardRow, rowIndex) => {
-          return (
-            <ul key={rowIndex}>
-              {boardRow.map((boardColumn, columnIndex) => {
-                return (
-                  <li
-                    key={columnIndex}
-                    onClick={() => handleCellClick(rowIndex, columnIndex)}
-                    onContextMenu={(event) => {
-                      console.log('test')
-                      event.preventDefault()
-                      event.stopPropagation()
-                      handleCellRightClick(rowIndex, columnIndex)
-                    }}
-                  >
-                    {boardColumn}
-                  </li>
-                )
-              })}
-            </ul>
-          )
-        })}
-      </main>
-      <button onClick={handleNewGameButtonClick}>New Game</button>
+      <section>
+        <h1>{gameStatus}</h1>
+        <main>
+          {game.board.map((boardRow, rowIndex) => {
+            return (
+              <ul key={rowIndex}>
+                {boardRow.map((boardColumn, columnIndex) => {
+                  return (
+                    <li
+                      key={columnIndex}
+                      onClick={() => handleCellClick(rowIndex, columnIndex)}
+                      onContextMenu={(event) => {
+                        console.log('test')
+                        event.preventDefault()
+                        event.stopPropagation()
+                        handleCellRightClick(rowIndex, columnIndex)
+                      }}
+                    >
+                      {transformCell(boardColumn)}
+                    </li>
+                  )
+                })}
+              </ul>
+            )
+          })}
+        </main>
+        <button onClick={handleNewGameButtonClick}>New Game</button>
+      </section>
     </div>
   )
 }
